@@ -18,15 +18,27 @@ This project uses the following frameworks in order to optimize the application 
 
 ```sh
 git clone https://github.com/danielvito/comexport-backend.git
-cd dca-app.git
+cd comexport-backend
 
 # Install dependencies
-mvn install
 
-# Run Application
+# It's needed to start the database service to build
+docker-compose up -d database
+
+# Run with maven Application
+mvn install
 # It will start the server on localhost:8888/comexport
 
-@TODO
+# Running with docker
+# create the java spring boot image
+docker build -t spring-boot-docker-app .
+
+# Running application and database
+docker-compose up -d
+
+# Scale application
+docker-compose scale application=2
+
 
 ## License
 

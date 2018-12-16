@@ -1,0 +1,26 @@
+version: '3'
+
+volumes:
+  data:
+
+services:
+  database:
+    image: mysql:5.7
+    container_name: mysql
+    hostname: database
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=root
+    volumes:
+      - $PWD/storage/mysql-datadir:/var/lib/mysql
+      - $PWD/extra:/docker-entrypoint-initdb.d
+  application:
+    image: spring-boot-docker-app
+    ports:
+      - "8888"
+    volumes:
+      - $PWD/storage/tmp:/tmp
+    depends_on:
+    - database
