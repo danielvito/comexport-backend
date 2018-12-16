@@ -5,16 +5,16 @@ import java.util.Date;
 
 public class LancamentoContabilRest {
 
-	private String contaContabtil;
+	private String contaContabil;
 	private Date data;
 	private BigDecimal valor;
 
-	public String getContaContabtil() {
-		return contaContabtil;
+	public String getContaContabil() {
+		return contaContabil;
 	}
 
-	public void setContaContabtil(String contaContabtil) {
-		this.contaContabtil = contaContabtil;
+	public void setContaContabil(String contaContabil) {
+		this.contaContabil = contaContabil;
 	}
 
 	public Date getData() {

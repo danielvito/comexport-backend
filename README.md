@@ -19,17 +19,38 @@ This project uses the following frameworks in order to optimize the application 
 ```sh
 git clone https://github.com/danielvito/comexport-backend.git
 cd comexport-backend
+```
 
-# Install dependencies
-
-# It's needed to start the database service to build
+### It's mandatory to start the database service before building the application
+```sh
 docker-compose up -d database
 
-# Run with maven Application
-mvn install
-# It will start the server on localhost:8888/comexport
+# add this line in the hosts file
+127.0.0.1 database
 
-# Running with docker
+# optionally, connect to the database
+docker exec -it mysql mysql -uroot -proot 
+```
+
+### Running maven
+```sh
+# Install dependencies
+mvn install
+
+# Execute Unit Tests (**/*Test.java classes)
+mvn test
+
+# Execute Integrated Tests (**/*IT.java classes)
+mvn verify
+
+# Start application
+mvn spring-boot:run
+# It will start the server on localhost:8888/comexport
+# There are sample requets to import and run using Postman (see postman_samples.json)
+```
+
+##  Running with docker
+```sh
 # create the java spring boot image
 docker build -t spring-boot-docker-app .
 
@@ -38,7 +59,7 @@ docker-compose up -d
 
 # Scale application
 docker-compose scale application=2
-
+```
 
 ## License
 

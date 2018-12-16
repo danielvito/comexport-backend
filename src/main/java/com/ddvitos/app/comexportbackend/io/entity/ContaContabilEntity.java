@@ -22,7 +22,7 @@ public class ContaContabilEntity implements Serializable {
 	@Column(nullable = false)
 	private String contaContabilId;
 
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	private String numero;
 
 	@Column(nullable = false, length = 250)

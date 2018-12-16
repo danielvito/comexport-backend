@@ -5,7 +5,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ddvitos.app.comexportbackend.exceptions.ContaContabilServiceException;
+import com.ddvitos.app.comexportbackend.exceptions.RecordAlreadyExistsException;
+import com.ddvitos.app.comexportbackend.exceptions.RecordNotFoundException;
 import com.ddvitos.app.comexportbackend.io.entity.ContaContabilEntity;
 import com.ddvitos.app.comexportbackend.io.repository.ContaContabilRepository;
 import com.ddvitos.app.comexportbackend.io.repository.LancamentoContabilRepository;
@@ -29,7 +30,7 @@ public class ContaContabilImpl implements ContaContabilService {
 	public ContaContabilDTO createContaContabil(ContaContabilDTO contaContabilDTO) {
 		ContaContabilEntity contaContabilEntity = contaContabilRespository.findByNumero(contaContabilDTO.getNumero());
 		if (contaContabilEntity != null)
-			throw new ContaContabilServiceException("Conta already exists");
+			throw new RecordAlreadyExistsException("Conta already exists");
 
 		ModelMapper modelMapper = new ModelMapper();
 		ContaContabilEntity contaContaContabilEntity = modelMapper.map(contaContabilDTO, ContaContabilEntity.class);
@@ -47,7 +48,20 @@ public class ContaContabilImpl implements ContaContabilService {
 		ContaContabilEntity contaContabilEntity = contaContabilRespository.findByNumero(numero);
 
 		if (contaContabilEntity == null)
-			throw new ContaContabilServiceException("Conta contabil number: " + numero + " not found.");
+			throw new RecordNotFoundException("Conta contabil numero: " + numero + " not found.");
+
+		BeanUtils.copyProperties(contaContabilEntity, returnValue);
+
+		return returnValue;
+	}
+
+	@Override
+	public ContaContabilDTO getByContaContabilId(String contaContabilId) {
+		ContaContabilDTO returnValue = new ContaContabilDTO();
+		ContaContabilEntity contaContabilEntity = contaContabilRespository.findByContaContabilId(contaContabilId);
+
+		if (contaContabilEntity == null)
+			throw new RecordNotFoundException("Conta contabil id: " + contaContabilId + " not found.");
 
 		BeanUtils.copyProperties(contaContabilEntity, returnValue);
 

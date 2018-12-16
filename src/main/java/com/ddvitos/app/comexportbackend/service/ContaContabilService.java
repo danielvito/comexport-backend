@@ -8,4 +8,6 @@ public interface ContaContabilService {
 
 	ContaContabilDTO getByNumero(String contaContabil);
 
+	ContaContabilDTO getByContaContabilId(String contaContabilId);
+
 }

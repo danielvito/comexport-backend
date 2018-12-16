@@ -10,4 +10,6 @@ public interface ContaContabilRepository extends PagingAndSortingRepository<Cont
 
 	ContaContabilEntity findByNumero(String numero);
 
+	ContaContabilEntity findByContaContabilId(String contaContabilId);
+
 }

@@ -11,8 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.ddvitos.app.comexportbackend.exceptions.ContaContabilServiceException;
-import com.ddvitos.app.comexportbackend.exceptions.LancamentoContabilServiceException;
+import com.ddvitos.app.comexportbackend.exceptions.RecordNotFoundException;
 import com.ddvitos.app.comexportbackend.io.entity.ContaContabilEntity;
 import com.ddvitos.app.comexportbackend.io.entity.LancamentoContabilEntity;
 import com.ddvitos.app.comexportbackend.io.repository.ContaContabilRepository;
@@ -39,7 +38,7 @@ public class LancamentoContabilImpl implements LancamentoContabilService {
 		ContaContabilEntity contaContabilEntity = contaContabilRespository
 				.findByNumero(lancamentoContabilDTO.getContaContabil().getNumero());
 		if (contaContabilEntity == null)
-			throw new ContaContabilServiceException("Conta contabil not found");
+			throw new RecordNotFoundException("Conta contabil not found");
 
 		ModelMapper modelMapper = new ModelMapper();
 		LancamentoContabilEntity lancamentoContaContabilEntity = modelMapper.map(lancamentoContabilDTO,
@@ -58,7 +57,7 @@ public class LancamentoContabilImpl implements LancamentoContabilService {
 		LancamentoContabilDTO returnValue = new LancamentoContabilDTO();
 		LancamentoContabilEntity lancamentoContabilEntity = lancamentoContabilRepository.findByLancamentoContabilId(id);
 		if (lancamentoContabilEntity == null)
-			throw new LancamentoContabilServiceException("Lancamento Contabil with ID: " + id + " not found.");
+			throw new RecordNotFoundException("Lancamento Contabil with ID: " + id + " not found.");
 
 		BeanUtils.copyProperties(lancamentoContabilEntity, returnValue);
 

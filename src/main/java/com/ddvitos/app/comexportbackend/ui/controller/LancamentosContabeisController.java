@@ -91,7 +91,7 @@ public class LancamentosContabeisController {
 
 	private LancamentoContabilRest toRest(LancamentoContabilDTO lancamentoContabilDTO) {
 		LancamentoContabilRest lancamentoContabilRest = new LancamentoContabilRest();
-		lancamentoContabilRest.setContaContabtil(lancamentoContabilDTO.getContaContabil().getNumero());
+		lancamentoContabilRest.setContaContabil(lancamentoContabilDTO.getContaContabil().getNumero());
 		lancamentoContabilRest.setData(lancamentoContabilDTO.getData());
 		lancamentoContabilRest.setValor(lancamentoContabilDTO.getValor());
 		return lancamentoContabilRest;

@@ -1,5 +1,8 @@
 package com.ddvitos.app.comexportbackend.ui.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -42,9 +46,32 @@ public class ContasContabeisController {
 
 	// detalhe de uma conta contabil
 	@GetMapping(path = "/{id}", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public String getContaContabil(@PathVariable String id) {
-		// @TODO
-		return "2";
+	public Map<String, String> getContaContabil(@PathVariable String id) {
+
+		ContaContabilDTO contaContabilDTO = contaContabilService.getByContaContabilId(id);
+
+		Map<String, String> returnValue = new HashMap<>();
+
+		returnValue.put("id", contaContabilDTO.getContaContabilId());
+		returnValue.put("descricao", contaContabilDTO.getDescricao());
+		returnValue.put("numero", contaContabilDTO.getNumero());
+
+		return returnValue;
+	}
+
+	// detalhe de uma conta contabil por numero
+	@GetMapping(produces = { MediaType.APPLICATION_JSON_VALUE })
+	public Map<String, String> getContaContabelPorNumero(@RequestParam(value = "numero") String numero) {
+
+		ContaContabilDTO contaContabilDTO = contaContabilService.getByNumero(numero);
+
+		Map<String, String> returnValue = new HashMap<>();
+
+		returnValue.put("id", contaContabilDTO.getContaContabilId());
+		returnValue.put("descricao", contaContabilDTO.getDescricao());
+		returnValue.put("numero", contaContabilDTO.getNumero());
+
+		return returnValue;
 	}
 
 }
