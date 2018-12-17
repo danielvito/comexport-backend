@@ -32,15 +32,15 @@ docker-compose up -d database
 docker exec -it mysql mysql -uroot -proot 
 ```
 
-### Running maven
+### Running with maven
 ```sh
-# Install dependencies
+# Install dependencies (it will build and run unit and integration tests)
 mvn install
 
-# Execute Unit Tests (**/*Test.java classes)
+# Execute build + Unit Tests (LancamentosContabeisControllerUTest)
 mvn test
 
-# Execute Integrated Tests (**/*IT.java classes)
+# Execute build + Unit Tests + Integrated Tests (LancamentosContabeisControllerIT)
 mvn verify
 
 # Start application
@@ -49,15 +49,15 @@ mvn spring-boot:run
 # There are sample requets to import and run using Postman (see postman_samples.json)
 ```
 
-##  Running with docker
+###  Running with docker (its mandatory to run maven build before in order to have the jar file generated)
 ```sh
-# create the java spring boot image
+# create the java spring boot image with the app jar inside
 docker build -t spring-boot-docker-app .
 
 # Running application and database
 docker-compose up -d
 
-# Scale application
+# Scale application (each app container will be mapped to a random port)
 docker-compose scale application=2
 ```
 
